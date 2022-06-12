@@ -1,0 +1,16 @@
+.buy-button {
+
+    position: absolute;
+    bottom: 85px;
+    opacity: 0.7;
+}
+
+.buy-button > button {
+    height: 36px;
+    width: 100px;
+    font-size: 16px;
+}
+
+.hidden-element {
+    display: none;
+}

@@ -1,4 +1,6 @@
 import React from "react";
+import FavouriteList from "./Favourite-List";
+import MovieCard from "./MovieCard";
 
 // const API_KEY = 'e08d15260b80f4fba575a381012e7ce8';
 
@@ -14,6 +16,8 @@ class App extends React.Component {
 
       moviesList: [],
       favouriteList: [],
+      isVisible: false,
+      cartItems: [],
 
     }
 
@@ -38,15 +42,45 @@ class App extends React.Component {
 
   }
 
+  removeFavourite = (movie) => {
+
+   const { favouriteList } = this.state
+
+    let newFavouritesList = favouriteList.filter((curMovie) => curMovie.id !== movie.id);
+
+    this.setState(
+      { favouriteList: [...newFavouritesList] }
+    )
+
+  }
+
+  addToCart = ( movie ) => {
+
+    console.log("cart function called")
+
+    this.setState((prevState) => ({  cartItems: [...prevState.cartItems, movie]  }))
+
+  }
+
+   
+
   render () {
 
-    const { moviesList  } = this.state;
+    const { moviesList, favouriteList , cartItems } = this.state;
+
+
 
     return (
 
       <div>
 
+          <nav>
+          <i class="fa-solid fa-cart-shopping"></i> <span> {cartItems.length} </span>
+          </nav>
+
           <h3>Welcome to the Movies Store</h3>
+
+
 
           <div className="movies-container" >
 
@@ -54,22 +88,17 @@ class App extends React.Component {
               {moviesList.map((movie) => 
 
 
-                <li>
-                  <i class="fa fa-heart" aria-hidden="true" onClick={() => this.addToFavourite(movie)} ></i>
-                  <img src={`https://image.tmdb.org/t/p/original${movie.poster_path}`} alt="movie-logo"  />
-
-                  <span>
-                    <span>{movie.title}</span>
-                    <br/>
-                    <span>{ movie.release_date }</span>
-                    <progress value={movie.vote_average} max={10} color="blue" />      
-                  </span>                    
-                </li>
+                <MovieCard movie={movie} favouriteCallback={this.addToFavourite} addToCart={this.addToCart} />
 
               )}
             </ul>
 
           </div>
+
+          <h1>Favourite List</h1>
+
+          <FavouriteList moviesList={favouriteList} removeFavourite={this.removeFavourite} addToCart={this.addToCart}  />
+
 
       </div>
 
