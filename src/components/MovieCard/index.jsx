@@ -33,7 +33,7 @@ class MovieCard extends React.Component {
 
     
    render() { 
-    return <li onMouseOver={this.showControls} onMouseLeave={this.showControls} >
+    return <li onMouseEnter={this.showControls} onMouseLeave={this.showControls} >
    {this.state.isVisible && <i class="fa fa-heart" aria-hidden="true" onClick={() => this.props.favouriteCallback(this.props.movie)} ></i> }
     <img src={`https://image.tmdb.org/t/p/original${this.props.movie.poster_path}`} alt="movie-logo" />
     <div className="buy-button" > {  <button onClick={() => this.props.addToCart(this.props.movie)} >Buy Now </button>} </div>

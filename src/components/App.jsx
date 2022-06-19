@@ -1,4 +1,6 @@
 import React from "react";
+import { connect } from "react-redux";
+import { addToCart, addTodo, addToFavourites, getMoviesList, removeFromFavourite } from "../actions";
 import FavouriteList from "./Favourite-List";
 import MovieCard from "./MovieCard";
 
@@ -13,52 +15,34 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-
-      moviesList: [],
-      favouriteList: [],
       isVisible: false,
-      cartItems: [],
-
     }
 
   }
 
   componentDidMount = async () => {
 
-    let response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=e08d15260b80f4fba575a381012e7ce8&language=en-US&page=1`)
-
-    let parsedResponse = await response.json();
-
-    this.setState({
-      moviesList: [ ...parsedResponse.results  ]
-    })
+    this.props.dispatch(getMoviesList())
 
     
   }
 
   addToFavourite = (movie) => {
 
-   this.setState((prevState) => ({ favouriteList: [...prevState.favouriteList, movie]  }) )
+    this.props.dispatch(addToFavourites(movie))
+
 
   }
 
   removeFavourite = (movie) => {
 
-   const { favouriteList } = this.state
-
-    let newFavouritesList = favouriteList.filter((curMovie) => curMovie.id !== movie.id);
-
-    this.setState(
-      { favouriteList: [...newFavouritesList] }
-    )
+    this.props.dispatch(removeFromFavourite(movie))
 
   }
 
   addToCart = ( movie ) => {
 
-    console.log("cart function called")
-
-    this.setState((prevState) => ({  cartItems: [...prevState.cartItems, movie]  }))
+    this.props.dispatch(addToCart(movie));
 
   }
 
@@ -66,16 +50,12 @@ class App extends React.Component {
 
   render () {
 
-    const { moviesList, favouriteList , cartItems } = this.state;
-
-
-
     return (
 
       <div>
 
           <nav>
-          <i class="fa-solid fa-cart-shopping"></i> <span> {cartItems.length} </span>
+          <i class="fa-solid fa-cart-shopping"></i> <span> {this.props.cartItems.length} </span>
           </nav>
 
           <h3>Welcome to the Movies Store</h3>
@@ -85,7 +65,7 @@ class App extends React.Component {
           <div className="movies-container" >
 
             <ul className="movies-list">
-              {moviesList.map((movie) => 
+              {this.props.moviesList.map((movie) => 
 
 
                 <MovieCard movie={movie} favouriteCallback={this.addToFavourite} addToCart={this.addToCart} />
@@ -97,7 +77,7 @@ class App extends React.Component {
 
           <h1>Favourite List</h1>
 
-          <FavouriteList moviesList={favouriteList} removeFavourite={this.removeFavourite} addToCart={this.addToCart}  />
+          <FavouriteList moviesList={this.props.favouriteList} removeFavourite={this.removeFavourite} addToCart={this.addToCart}  />
 
 
       </div>
@@ -108,5 +88,11 @@ class App extends React.Component {
 
 }
 
+const mapStateToProps = (state, ownProps) => ({
+  // ... computed data from state and optionally ownProps
+  favouriteList : state.favouriteList,
+  cartItems: state.cartItems,
+  moviesList: state.moviesList
+})
 
-export default App;
+export default  connect(mapStateToProps)(App);
