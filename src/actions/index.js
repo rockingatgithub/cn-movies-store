@@ -1,9 +1,16 @@
 
-export const getMoviesList = async () => {
+export const getMoviesList = () => {
 
-  let response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=e08d15260b80f4fba575a381012e7ce8&language=en-US&page=1`)
+  return async (dispatch, getState) => {
 
-  let parsedResponse = await response.json();
+    let response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=e08d15260b80f4fba575a381012e7ce8&language=en-US&page=1`);
+    let parsedResponse = await response.json();
+    dispatch(setMoviesList(parsedResponse))
+    }
+
+}
+
+export const setMoviesList = (parsedResponse) => {
 
   return ({
     type: "GET_MOVIES",
