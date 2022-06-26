@@ -1,0 +1,2 @@
+ul{list-style:none;overflow-x:scroll}li,ul{display:flex}li{align-items:center;flex-direction:column;font-weight:600;height:370px;justify-content:space-between;margin:0 20px;position:relative;text-align:center}img{border-radius:16px;height:300px;width:200px}i{color:#fff;font-size:20px;left:20px;top:10px}.buy-button,i{position:absolute}.buy-button{bottom:85px;opacity:.7}.buy-button>button{font-size:16px;height:36px;width:100px}.hidden-element{display:none}
+/*# sourceMappingURL=main.ab1e7168.css.map*/

@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/cn-movies-store/static/css/main.ab1e7168.css",
+    "main.js": "/cn-movies-store/static/js/main.7d47fc52.js",
+    "index.html": "/cn-movies-store/index.html",
+    "main.ab1e7168.css.map": "/cn-movies-store/static/css/main.ab1e7168.css.map",
+    "main.7d47fc52.js.map": "/cn-movies-store/static/js/main.7d47fc52.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ab1e7168.css",
+    "static/js/main.7d47fc52.js"
+  ]
+}
