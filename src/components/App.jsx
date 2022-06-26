@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link, Route, Routes } from "react-router-dom";
 import { addToCart, addTodo, addToFavourites, getMoviesList, removeFromFavourite } from "../actions";
+import Cart from "./Cart";
 import FavouriteList from "./Favourite-List";
 import MovieCard from "./MovieCard";
 
@@ -54,8 +56,20 @@ class App extends React.Component {
 
       <div>
 
+        <Routes>
+
+          <Route path="/home"  element={<FavouriteList moviesList={this.props.favouriteList} removeFavourite={this.removeFavourite} addToCart={this.addToCart}  />} />
+
+          <Route path="/cart" element={<Cart/>} />
+
+        </Routes>
+
           <nav>
           <i class="fa-solid fa-cart-shopping"></i> <span> {this.props.cartItems.length} </span>
+
+          <Link to="/home">  Home </Link>
+          <Link to="/cart">  Cart </Link>
+
           </nav>
 
           <h3>Welcome to the Movies Store</h3>
@@ -77,7 +91,7 @@ class App extends React.Component {
 
           <h1>Favourite List</h1>
 
-          <FavouriteList moviesList={this.props.favouriteList} removeFavourite={this.removeFavourite} addToCart={this.addToCart}  />
+          {/* <FavouriteList moviesList={this.props.favouriteList} removeFavourite={this.removeFavourite} addToCart={this.addToCart}  /> */}
 
 
       </div>
